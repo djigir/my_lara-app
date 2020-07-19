@@ -84,6 +84,11 @@
                     Laravel
                 </div>
 
+                @php
+                        $p = App\SBlog\Core\BlogApp::get_instance()->getProperty('admin_email');
+                dd($p);
+                        @endphp
+
                 <div class="links">
                     <a href="https://laravel.com/docs">Docs</a>
                     <a href="https://laracasts.com">Laracasts</a>
