@@ -16,7 +16,9 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name',
+        'email',
+        'password',
     ];
 
     /**
@@ -25,7 +27,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password',
+        'remember_token',
     ];
 
     /**
@@ -36,4 +39,33 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function roles() {
+
+        return $this->belongsToMany(Role::class, 'user_roles');
+
+    }
+
+    public function isAdministrator() {
+
+        return $this->roles()->where('name', 'admin')->exists();
+    }
+
+    public function isUser() {
+
+        $user = $this->roles()->where('name', 'user')->exists();
+        if ($user) return $user;
+    }
+
+    public function isDisabled() {
+
+        $disabled = $this->roles()->where('name', 'disabled')->exists();
+        if ($disabled) return $disabled;
+    }
+
+    public function isVisitor() {
+
+        $user = $this->roles()->where('name', '')->exists();
+        if ($user) return "user";
+    }
 }
