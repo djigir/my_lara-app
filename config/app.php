@@ -177,6 +177,7 @@ return [
 
         /** My Provider for this project */
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+        Lavary\Menu\ServiceProvider::class,
 
     ],
 
@@ -233,6 +234,7 @@ return [
 
         /** My alias */
         'MetaTag' => Fomvasss\LaravelMetaTags\Facade::class,
+        'Menu' => Lavary\Menu\Facade::class,
     ],
 
 ];

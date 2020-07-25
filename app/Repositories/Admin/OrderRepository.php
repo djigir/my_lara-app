@@ -42,4 +42,75 @@ class OrderRepository extends CoreRepository {
 
     }
 
+    public function getOneOrder($order_id) {
+
+        $order = $this->startConditions()::withTrashed()
+            ->join('users', 'orders.user_id', '=', 'users.id')
+            ->join('order_products', 'order_products.order_id', '=', 'orders.id')
+            ->select('orders.*', 'users.name',
+                \DB::raw('ROUND(SUM(order_products.price),2) AS sum'))
+            ->where('orders.id', $order_id)
+            ->groupBy('orders.id')
+            ->orderBy('orders.status')
+            ->orderBy('orders.id')
+            ->limit(1)
+            ->first();
+
+        return $order;
+    }
+
+    public function getAllOrderProductsId($order_id) {
+
+        $orderProducts = \DB::table('order_products')
+            ->where('order_id', $order_id)
+            ->get();
+
+        return $orderProducts;
+    }
+
+    public function changeStatusOrder($id) {
+
+        $item = $this->getId($id);
+
+        if (!$item) {
+            abort(404);
+        }
+
+        $item->status = !empty($_GET['status']) ? '1' : '0';
+
+        $result = $item->update();
+        return $result;
+    }
+
+    public function changeStatusOnDelete($id){
+
+        $item = $this->getId($id);
+        if (!$item) {
+            abort(404);
+        }
+        $item->status = '2';
+
+        $result = $item->update();
+
+        return $result;
+    }
+
+    public function saveOrderComment($adminOrderSaveRequest, $id){
+
+        $item = $this->getId($id);
+        if (!$item) {
+            abort(404);
+        }
+        $item->note = $adminOrderSaveRequest->comment;
+        $item->update();
+        return $item;
+    }
+
+    public function forcedelete($id) {
+
+        $res = \DB::table('orders')
+            ->delete($id);
+
+        return $res;
+    }
 }
