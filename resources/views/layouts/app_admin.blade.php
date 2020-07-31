@@ -10,6 +10,8 @@
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.7 -->
     <link rel="stylesheet" href="{{asset('adminlte/bower_components/bootstrap/dist/css/bootstrap.min.css')}}">
+    <!-- для select связвные товары -->
+    <link rel="stylesheet" href="{{asset('adminlte/bower_components/select2/dist/css/select2.css')}}">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{asset('adminlte/bower_components/font-awesome/css/font-awesome.min.css')}}">
     <!-- Ionicons -->
@@ -70,7 +72,7 @@
                             <!-- Menu Footer-->
                             <li class="user-footer">
                                 <div class="pull-left">
-                                    <a href="{{--route('blog.admin.users.edit',Auth::user()->id)--}}" class="btn btn-default btn-flat">Профиль</a>
+                                    <a href="{{ route('blog.admin.users.edit',Auth::user()->id) }}" class="btn btn-default btn-flat">Профиль</a>
                                 </div>
                                 <div class="pull-right">
                                     <a href="{{ route('logout') }}" onclick="event.preventDefault();
@@ -133,11 +135,11 @@
               </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="">Список товаров</a></li>
-                        <li><a href="">Добавить товар</a></li>
+                        <li><a href="{{ route('blog.admin.products.index') }}">Список товаров</a></li>
+                        <li><a href="{{ route('blog.admin.products.create') }}">Добавить товар</a></li>
                     </ul>
                 </li>
-                <li><a href=""><i class="fa fa-database"></i> <span>Кэширование</span></a></li>
+                <li><a href="#"><i class="fa fa-database"></i> <span>Кэширование</span></a></li>
                 <li class="treeview">
                     <a href="#"><i class="fa fa-users"></i> <span>Пользователи</span>
                         <span class="pull-right-container">
@@ -145,8 +147,8 @@
               </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="">Список пользователей</a></li>
-                        <li><a href="">Добавить пользователя</a></li>
+                        <li><a href="{{ route('blog.admin.users.index') }}">Список пользователей</a></li>
+                        <li><a href="{{ route('blog.admin.users.create') }}">Добавить пользователя</a></li>
                     </ul>
                 </li>
                 <li class="treeview">
@@ -156,8 +158,8 @@
 </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="">Список валют</a></li>
-                        <li><a href="">Добавить валюту</a></li>
+                        <li><a href="#">Список валют</a></li>
+                        <li><a href="#">Добавить валюту</a></li>
                     </ul>
                 </li>
                 <li class="treeview">
@@ -167,8 +169,8 @@
 </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="">Группы фильтров</a></li>
-                        <li><a href="">Фильтры</a></li>
+                        <li><a href="#">Группы фильтров</a></li>
+                        <li><a href="#">Фильтры</a></li>
                     </ul>
                 </li>
             </ul>
@@ -220,6 +222,8 @@
 </script>
 <!-- jQuery 3 -->
 <script src="{{asset('adminlte/bower_components/jquery/dist/jquery.min.js')}}"></script>
+<!-- AjaxUpload -->
+<script src="{{asset('js/ajaxupload.js')}}"></script>
 
 <!-- Bootstrap 3.3.7 -->
 <script src="{{asset('adminlte/bower_components/bootstrap/dist/js/bootstrap.min.js')}}"></script>
@@ -230,9 +234,18 @@
 <!-- AdminLTE App -->
 <script src="{{asset('adminlte/dist/js/adminlte.min.js')}}"></script>
 
+<!-- красивый редактор для текстареи в админке для добавление товара -->
+<script src="{{asset('adminlte/bower_components/ckeditor/ckeditor.js')}}"></script>
+<script src="{{asset('adminlte/bower_components/ckeditor/adapters/jquery.js')}}"></script>
+
+<!-- для связи товаров в админке -->
+<script src="{{asset('adminlte/bower_components/select2/dist/js/select2.full.js')}}"></script>
 
 <script src="{{ asset('js/my.js') }}"></script>
 <!-- === = ===  -->
 
+@include('blog.admin.product.include.script_img')
+@include('blog.admin.product.include.script_gallery')
+@include('blog.admin.product.include.script_related_prod')
 </body>
 </html>

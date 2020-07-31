@@ -44,6 +44,20 @@ Route::group(['middleware' => ['status', 'auth']], function (){
 
         Route::get('categories/mydel', 'CategoryController@mydel')->name('blog.admin.categories.mydel');
         Route::resource('categories', 'CategoryController')->names('blog.admin.categories');
+
+        Route::resource('users', 'UserController')->names('blog.admin.users');
+
+
+        Route::get('products/related', 'ProductController@related');
+
+        Route::match(['get', 'post'], 'products/ajax-image-upload', 'ProductController@ajaxImage');
+        Route::delete('products/ajax-remove-image/{filename}', 'ProductController@deleteImage');
+
+        Route::post('products/gallery', 'ProductController@gallery')->name('blog.admin.products.gallery');
+        Route::post('products/delete-gallery', 'ProductController@deleteGallery')->name('blog.admin.products.deletegallery');
+
+
+        Route::resource('products', 'ProductController')->names('blog.admin.products');
     });
 });
 

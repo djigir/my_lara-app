@@ -41,3 +41,8 @@
     border-color: #d73925;
     color: #fff;
 }
+
+/** for gallery */
+.overlay {
+    display: none;
+}
