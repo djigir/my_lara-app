@@ -175,6 +175,10 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        /** My Provider for this project */
+        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+        Lavary\Menu\ServiceProvider::class,
+
     ],
 
     /*
@@ -227,6 +231,10 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
+
+        /** My alias */
+        'MetaTag' => Fomvasss\LaravelMetaTags\Facade::class,
+        'Menu' => Lavary\Menu\Facade::class,
     ],
 
 ];
